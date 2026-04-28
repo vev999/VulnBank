@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Flask / Werkzeug
+instance/
+.webassets-cache
+flask_session/
+
+# Środowisko
+.env
+.env.local
+.env.*.local
+
+# Node / Frontend
+node_modules/
+dist/
+.vite/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+
+# Docker
+.docker/
+
+# Baza danych (lokalne wolumeny)
+postgres_data/
+*.sqlite
+*.db
+
+# Logi
+*.log
+/tmp/vulnbank.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Certyfikaty / klucze
+*.pem
+*.key
+*.crt
+*.p12
+
+

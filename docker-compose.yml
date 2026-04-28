@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - vulnbank_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_DEBUG: "true"
+      FLASK_ENV: "development"
+      SECRET_KEY: "supersecretkey"
+      DATABASE_URL: "postgresql://vulnbank:vulnbank@db/vulnbank"
+      REDIS_URL: "redis://redis:6379"
+      FLAG_A02: "PWR{debug_config_exposed}"
+      INTERNAL_API_KEY: "dev-internal-key-do-not-share"
+    restart: on-failure
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - vulnbank_net
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: vulnbank
+      POSTGRES_USER: vulnbank
+      POSTGRES_PASSWORD: vulnbank
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01_init.sql
+      - ./db/seeds/users.sql:/docker-entrypoint-initdb.d/02_users.sql
+      - ./db/seeds/accounts.sql:/docker-entrypoint-initdb.d/03_accounts.sql
+      - ./db/seeds/transactions.sql:/docker-entrypoint-initdb.d/04_transactions.sql
+      - ./db/seeds/flags.sql:/docker-entrypoint-initdb.d/05_flags.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vulnbank"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - vulnbank_net
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - vulnbank_net
+
+networks:
+  vulnbank_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
