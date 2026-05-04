@@ -13,4 +13,8 @@ export default defineConfig({
       },
     },
   },
+  // Wymuszenie generowania Source Maps na produkcji
+  build: {
+    sourcemap: true,
+  },
 });

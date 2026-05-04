@@ -17,6 +17,12 @@ const CHALLENGES = [
     endpoint: "GET /api/debug/config",
   },
   {
+    id: "A02.1", name: "Source Maps Leak", category: "OWASP A02:2021",
+    difficulty: "easy", points: 100,
+    hint: "Zajrzyj do DevTools -> Sources i przeszukaj kod źródłowy",
+    endpoint: "Frontend (F12 -> Sources)"
+  },
+  {
     id: "A03", name: "Supply Chain Failures", category: "OWASP A03:2021",
     difficulty: "easy", points: 100,
     hint: "Sprawdź listę zależności: /api/debug/dependencies. Poszukaj pakietu z polem 'flag'.",

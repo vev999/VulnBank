@@ -11,7 +11,8 @@ VALUES
     (7,  'A07', 'PWR{no_ratelimit_bruteforce}',     'Brute-force logowania bez rate limitingu',    'easy',   100),
     (8,  'A08', 'PWR{jwt_tampered_admin}',          'JWT None Algorithm — bypass autoryzacji admina', 'medium', 150),
     (9,  'A09', 'PWR{logs_exposed_no_auth}',        'Logi z hasłami dostępne bez autoryzacji',     'easy',   100),
-    (10, 'A10', 'PWR{stacktrace_db_url_leaked}',    'Stack trace ujawnia connection string z hasłem', 'easy',  100)
+    (10, 'A10', 'PWR{stacktrace_db_url_leaked}',    'Stack trace ujawnia connection string z hasłem', 'easy',  100),
+    (11,  'A02.1', 'PWR{S0urc3_M4ps_L34k}',        'Aplikacja błędnie udostępnia pliki Source Maps na produkcji',   'easy',   100)
 ON CONFLICT (id) DO NOTHING;
 
 SELECT setval('flags_id_seq', (SELECT MAX(id) FROM flags));
